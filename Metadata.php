@@ -21,11 +21,15 @@ final class Metadata
         return $data[$resourceCode];
     }
 
-    public static function metadataExists(string $resourceType, string $resourceCode): bool
+    public static function metadataExists(string $resourceType, string $resourceCode, string $type): bool
     {
         $data = self::loadData($resourceType);
 
-        return array_key_exists($resourceCode, $data);
+        if(array_key_exists($resourceCode, $data)){
+            return array_key_exists($type, $data[$resourceCode]);
+        }
+
+        return false;
     }
 
     private static function loadData(string $resourceType): array
